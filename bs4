@@ -1,0 +1,34 @@
+Beautiful Soup 将复杂 HTML 文档转换成一个复杂的树形结构，每个节点都是Python对象
+
+bs4.element
+# Tag              name即为本身  attrs获得所有属性
+# BeautifulSoup    文档的全部内容
+# NavigableString  tag内的内容
+# Comment          tag内注释部分内容
+
+soup.prettify
+遍历
+# .contents    将tag的子节点以列表的方式输出
+# .children    将tag的子节点以生成器的方式输出
+# .descendants 对所有tag的子孙节点进行递归循环以生成器方式输出
+# .string      单个结点tag内容
+# .strings     获取多个内容
+# .stripped_strings 可以去除多余的空白内容
+# .parent     父节点
+# .parents    递归得到元素所有父辈节点
+# .next_sibling/.previous_sibling    获取该节点的兄弟节点（空白或者换行也可以被视作一个节点）
+# .next_siblings/.previous_siblings  获取该节点的全部兄弟节点
+# .next_element/.previous_element    针对所有结点不分层次的前后结点
+# .next_elements/.previous_elements  以迭代器形式向前或向后访问文档的前后结点
+
+搜索
+# find_all(name, attrs, recursive, text, **kwargs )
+  name  字符串，正则表达式，列表，函数，keyword
+  attrs 字典
+  text  内容
+  limit 限制数量
+  recursive 包含当前结点的子孙结点
+
+# select() 返回列表
+  CSS选择器，tag不加任何修饰，class前加点，id前加#
+  返回列表形式，可以遍历形式输出，然后用get_text()方法来获取内容
