@@ -1,4 +1,6 @@
 *.pyc
 .DS_Store
 .idea
-venv
+up_dayday
+pyspyder
+rebs
