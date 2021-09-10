@@ -19,10 +19,19 @@ class DaySpider(scrapy.Spider):
     def parse_detail(self, response):
         name = response.xpath('//*[@id="body"]/div[11]/div/div/div[1]/div[1]/div/text()').extract()[0]
         num = response.xpath('//*[@id="body"]/div[11]/div/div/div[1]/div[1]/div/span[2]/text()').extract()[0]
-        # parts = []
-        part = response.xpath(
-            '/html/body/div[2]/div[13]/div/div/div[1]/div[2]/div[2]/ul/li[1]/div[1]/table/tbody/tr[2]/td[1]/a/@href').extract()
-        # for i in range(2, 12):
-        #     part = response.xpath('//*[@id="position_shares"]/div[1]/table/tbody/tr[2]/td[1]/a/text()').extract()
-        #     parts.append(part)
-        print(response.url, name, num, part)
+        one_month = \
+            response.xpath('//*[@id="body"]/div[11]/div/div/div[2]/div[1]/div[1]/dl[1]/dd[2]/span[2]/text()').extract()
+        three_month = response.xpath('//*[@id="body"]/div[11]/div/div/div[2]/div[1]/div[1]/dl[1]/dd[2]/span[2]/text()')
+        six_month = \
+            response.xpath('//*[@id="body"]/div[11]/div/div/div[2]/div[1]/div[1]/dl[1]/dd[2]/span[2]/text()').extract()
+        one_year = \
+            response.xpath('//*[@id="body"]/div[11]/div/div/div[2]/div[1]/div[1]/dl[1]/dd[2]/span[2]/text()').extract()
+
+
+
+        parts = {}
+        for i in range(2, 12):
+            part = response.xpath('//*[@id="position_shares"]/div[1]/table/tr[{}]/td[1]/a/text()'.format(i)).extract()[0]
+            url = response.xpath('//*[@id="position_shares"]/div[1]/table/tr[{}]/td[1]/a/@href'.format(i)).extract()[0]
+            parts[part] = url
+        print(response.url, name, num, parts)
