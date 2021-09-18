@@ -1,4 +1,8 @@
 import scrapy
+import logging
+from ..logs import log_init
+
+log_init()
 
 
 class DaySpider(scrapy.Spider):
@@ -7,8 +11,12 @@ class DaySpider(scrapy.Spider):
 
     def parse(self, response):
         if response.url in self.start_urls:
-            urls = response.xpath('//*[@id="tblite_fof"]/tbody/tr[1]/td[2]/a/@href').extract()
-            name = response.xpath('//*[@id="tblite_fof"]/tbody/tr[1]/td[2]/a/text()').extract()
+            # urls = response.xpath('//*[@id="tblite_fof"]/tbody/tr[1]/td[2]/a/@href').extract()
+            # name = response.xpath('//*[@id="tblite_fof"]/tbody/tr[1]/td[2]/a/text()').extract()
+            urls = response.xpath('//*[@class="fname"]//@href').extract()
+            names = response.xpath('//*[@class="fname"]//text()').extract()
+            logging.info("--- {} funding have got {} ---".format(len(names), names))
+
             for url in urls:
                 yield scrapy.Request(url, callback=self.parse)
         else:
